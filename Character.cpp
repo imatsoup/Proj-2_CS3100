@@ -1,5 +1,12 @@
 #include "Character.h"
 
-Character::Character(string name, string role, int hitPoints, int attackBonus, int damageBonus, int armorClass){
-    
+Character::Character(string newName, string newRole, int hp, int atkBons, int dmgBons, int ac)
+{
+    name = newName;
+    role = newRole;
+    hitPoints = hp;
+    attackBonus = atkBons;
+    damageBonus = dmgBons;
+    armorClass = ac;
+
 }

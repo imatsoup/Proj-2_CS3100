@@ -4,7 +4,7 @@ HEADER_FILES := $(wildcard *.h)
 LDLFLAGS := -g -ggdb
 CPPFLAGS := -g -ggdb
 
-main.exe: $(OBJ_FILES)
+rpg.exe: $(OBJ_FILES)
 	g++ $(LDLFLAGS) -o $@ $^
 
 %.o: %.cpp $(HEADER_FILES)
