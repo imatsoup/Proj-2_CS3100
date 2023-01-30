@@ -4,7 +4,8 @@ Character::Character(string newName, string newRole, int hp, int atkBons, int dm
 {
     name = newName;
     role = newRole;
-    hitPoints = hp;
+    hitPoints = 0;
+    setHP(hp, 0);
     attackBonus = atkBons;
     damageBonus = dmgBons;
     armorClass = ac;

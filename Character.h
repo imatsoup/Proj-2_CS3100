@@ -15,41 +15,56 @@ class Character
 
     public:
         Character(string name, string role, int hitPoints, int attackBonus, int damageBonus, int armorClass);
-
     //need Print() overloaded function (returns Character variables)
-    int getHP()
-    {
-        return hitPoints;
-    }
-    void setHP(int dmg)
-    {
-        hitPoints = (hitPoints - dmg);
-    }
-    int getAC()
-    {
-        return armorClass;
-    }
-    string getName()
-    {
-        return name;
-    }
-    string getRole()
-    {
-        return role;
-    }
-    void attack(Character defender)
-    {  
-        int attack = ((rand() % 19) + 1) + attackBonus;
-        if(attack >= defender.getAC())
+        
+        int getHealth()
         {
-            int damage = ((rand() % 9) + 1) + damageBonus;
-            defender.setHP(damage);
-            // cout << name << " strikes " << defender.getName() << " for " << damage << "damage!" << endl;
+            return hitPoints;
         }
-        else{
-            // cout << name << " misses " << defender.getName() << "!" << endl;
+        void setHP(int hp, int dmg)
+        {
+            hitPoints = (hp - dmg);
+            if(hitPoints < 0){
+                hitPoints = 0;
+            }
         }
+        int getAtkBonus(){
+            return attackBonus;
+        }
+        int getDmgBonus(){
+            return damageBonus;
+        }
+        int getAC()
+        {
+            return armorClass;
+        }
+        string getName()
+        {
+            return name;
+        }
+        string getRole()
+        {
+            return role;
+        }   
+        void attack(Character& defender)
+        {  
+            int attack = ((rand() % 19) + 1) + attackBonus;
+            if(attack >= defender.getAC())
+            {
+                int dmgCalc = damage(damageBonus);
+                defender.setHP(defender.getHealth(), dmgCalc);
+                cout << name << " strikes " << defender.getName() << " for " << dmgCalc << " damage!" << " Attack roll= " <<  (attack - getAtkBonus()) << " + " << getAtkBonus() 
+                << ". Damage roll= " << (dmgCalc - getDmgBonus()) << " + " << getDmgBonus() << "."<< endl;
+                cout << defender.getName() << " has " << defender.getHealth() << " hit points remaining!" << endl;
+            }
+            else{
+                cout << name << " misses " << defender.getName() << "!" << endl;
+            }
 
-    }
+        }
+        int damage(int dmgBonus)
+        {
+            return ((rand() % 9) + 1) + dmgBonus;
+        }
 
 };
