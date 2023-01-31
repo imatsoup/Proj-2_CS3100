@@ -4,11 +4,39 @@
 #include "Character.h"
 using namespace std;
 
+//CS-3100-02, John McGuff, Project-2 
+//This is a program that simulates an rpg battle between two characters created by the user.
+
+//Function that creates the character
+Character characterCreate(){
+//instantiate necessary variables to avoid making the computer upset
+    string plyrName = "";
+    string plyrRole = "";
+    int plyrHealth = 0;
+    int plyrAtkBonus = 0;
+    int plyrDmgBonus = 0;
+    int plyrAC = 0;
+    cout << "What is your character's name?" << endl;
+    //Prompt for, and store the input for all the character information
+    cin >> plyrName;
+    cout << "What is your character's role?" << endl;
+    cin >> plyrRole;
+    cout << "What is your character's Health Total?" << endl;
+    cin >> plyrHealth;
+    cout << "What is your character's Attack Bonus?" << endl;
+    cin >> plyrAtkBonus;
+    cout << "What is your character's Damage Bonus?" << endl;
+    cin >> plyrDmgBonus;
+    cout << "What is your character's Armor Class?" << endl;
+    cin >> plyrAC;
+    //Return the character that was made
+    return Character(plyrName, plyrRole, plyrHealth, plyrAtkBonus, plyrDmgBonus, plyrAC);
+}
 void combat(Character player, Character enemy)
     {
-        while(player.getHealth() > 1 && enemy.getHealth() > 1)
+        while(player.getHealth() != 0 && enemy.getHealth() != 0)
         {
-            int turnOrder = rand() % 1;
+            int turnOrder = rand() % 2;
             if(turnOrder < 1)
             {
                 player.attack(enemy);
@@ -40,50 +68,16 @@ void combat(Character player, Character enemy)
 
 int main()
 {
-    string plyrName = "";
-    string plyrRole = "";
-    int plyrHealth = 0;
-    int plyrAtkBonus = 0;
-    int plyrDmgBonus = 0;
-    int plyrAC = 0;
-    cout << "What is your character's name?" << endl;
-    cin >> plyrName;
-    cout << "What is your character's role?" << endl;
-    cin >> plyrRole;
-    cout << "What is your character's Health Total?" << endl;
-    cin >> plyrHealth;
-    cout << "What is your character's Attack Bonus?" << endl;
-    cin >> plyrAtkBonus;
-    cout << "What is your character's Damage Bonus?" << endl;
-    cin >> plyrDmgBonus;
-    cout << "What is your character's Armor Class?" << endl;
-    cin >> plyrAC;
-    Character playerChar = Character(plyrName, plyrRole, plyrHealth, plyrAtkBonus, plyrDmgBonus, plyrAC);
+    //Instatiate, then print both characters to the console
+    Character playerChar = characterCreate();
+    playerChar.print(cout);
+    Character enemyChar = characterCreate();
+    enemyChar.print(cout);
     //getting that random seed going
     srand(time(nullptr));
-    //Test fighters
-    Character garretT = Character("Garret Thornsberry", "rogue", 20, 4, 2, 7);
-    Character eVorlan = Character("Ekrin Vorlan", "wizard", 20, 6, 5, 3);
-    Character sirRB = Character("Reginald Bearington", "warrior", 15, 2, 1, 6);
-    Character emilaS = Character("Emila Stuthengard", "paladin", 25, 1, 1, 0);
-    Character opponentList[] = {garretT, eVorlan, sirRB, emilaS};
-    int opponentSelect = rand() % 3;
-    switch(opponentSelect){
-        case 0:
-            combat(playerChar, eVorlan);
-            break;
-        case 1:
-            combat(playerChar, eVorlan);
-            break;
-        case 2:
-            combat(playerChar, sirRB);
-            break;
-        case 3:
-            combat(playerChar, emilaS);
-            break;
-    }
-
-    
+    //Commence the battle
+    cout << "Simulated combat:" << endl;
+    combat(playerChar, enemyChar);
     return 0;
 }
 
